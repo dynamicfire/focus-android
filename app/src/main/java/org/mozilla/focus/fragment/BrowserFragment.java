@@ -579,7 +579,7 @@ public class BrowserFragment extends WebFragment implements View.OnClickListener
             }
 
             case R.id.customtab_close: {
-                erase();
+                BrowsingSession.getInstance().stop();
                 getActivity().finish();
                 break;
             }
