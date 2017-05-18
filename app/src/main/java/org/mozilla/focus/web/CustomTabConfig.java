@@ -109,7 +109,6 @@ public class CustomTabConfig {
             return null;
         }
 
-
         final Parcelable pendingIntentParcelable = actionButtonBundle.getParcelable(CustomTabsIntent.KEY_PENDING_INTENT);
         final PendingIntent pendingIntent;
         // See below: this might not be a PendingIntent, we need to verify ourselves

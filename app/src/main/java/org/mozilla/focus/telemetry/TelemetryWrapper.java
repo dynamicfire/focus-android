@@ -86,6 +86,7 @@ public final class TelemetryWrapper {
         private static final String ERASE = "erase";
         private static final String IMAGE = "image";
         private static final String LINK = "link";
+        private static final String CUSTOM_TAB = "custom_tab";
     }
 
     private static class Extra {
@@ -221,6 +222,10 @@ public final class TelemetryWrapper {
 
     public static void customTabActionButtonEvent() {
         TelemetryEvent.create(Category.ACTION, Method.CLICK, Object.CUSTOM_TAB_ACTION_BUTTON).queue();
+    }
+
+    public static void customTabMenuEvent() {
+        TelemetryEvent.create(Category.ACTION, Method.OPEN, Object.MENU, Value.CUSTOM_TAB).queue();
     }
 
     public static void textSelectionIntentEvent() {
