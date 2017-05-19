@@ -49,6 +49,9 @@ public class LocaleListPreference extends ListPreference {
         private final Paint paint = new Paint();
         private final byte[] missingCharacter;
 
+        // Note: this constructor fails when running in Robolectric: robolectric only supports bitmaps
+        // with 4 bytes per pixel ( https://github.com/robolectric/robolectric/blob/master/robolectric-shadows/shadows-core/src/main/java/org/robolectric/shadows/ShadowBitmap.java#L540 ).
+        // We need to either make this code test-aware, or fix robolectric.
         public CharacterValidator(String missing) {
             this.missingCharacter = getPixels(drawBitmap(missing));
         }
@@ -87,7 +90,7 @@ public class LocaleListPreference extends ListPreference {
     }
 
     private volatile Locale entriesLocale;
-    private final CharacterValidator characterValidator;
+    private CharacterValidator characterValidator;
 
     public LocaleListPreference(Context context) {
         this(context, null);
@@ -96,9 +99,6 @@ public class LocaleListPreference extends ListPreference {
     public LocaleListPreference(Context context, AttributeSet attributes) {
         super(context, attributes);
 
-        // Thus far, missing glyphs are replaced by whitespace, not a box
-        // or other Unicode codepoint.
-        this.characterValidator = new CharacterValidator(" ");
     }
 
     @Override
@@ -106,6 +106,10 @@ public class LocaleListPreference extends ListPreference {
         super.onAttachedToActivity();
 
         buildList();
+
+        // Thus far, missing glyphs are replaced by whitespace, not a box
+        // or other Unicode codepoint.
+        this.characterValidator = new CharacterValidator(" ");
     }
 
     private static final class LocaleDescriptor implements Comparable<LocaleDescriptor> {
