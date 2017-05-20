@@ -52,7 +52,7 @@ public class DownloadTest {
         parcel.setDataPosition(0);
 
         {
-            final Download download = Download.CREATOR.createFromParcel(parcel);
+            final Download download = Download.Companion.getCREATOR().createFromParcel(parcel);
 
             assertEquals("https://www.mozilla.org/image.png", download.getUrl());
             assertEquals("Focus/1.0", download.getUserAgent());

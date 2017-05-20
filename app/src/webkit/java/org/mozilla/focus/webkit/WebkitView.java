@@ -174,11 +174,11 @@ public class WebkitView extends NestedWebView implements IWebView, SharedPrefere
             public void run() {
                 // We call all methods on WebView to delete data. But some traces still remain
                 // on disk. This will wipe the whole webview directory.
-                FileUtils.deleteWebViewDirectory(context);
+                FileUtils.INSTANCE.deleteWebViewDirectory(context);
 
                 // WebView stores some files in the cache directory. We do not use it ourselves
                 // so let's truncate it.
-                FileUtils.truncateCacheDirectory(context);
+                FileUtils.INSTANCE.truncateCacheDirectory(context);
             }
         });
     }
